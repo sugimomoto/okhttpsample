@@ -1,18 +1,62 @@
 {
-    "request": {
-      "method": "GET",
-      "urlPattern": "/foo",
-      "headers": {
-        "Accept": {
-          "matches": "text/.*"
+    "mappings": [
+        {
+            "request": {
+                "method": "GET",
+                "urlPattern": "/foo",
+                "headers": {
+                    "Accept": {
+                        "matches": "text/.*"
+                    }
+                }
+            },
+            "response": {
+                "status": 200,
+                "body": "{\"bar\":\"buzz\"}",
+                "headers": {
+                    "Content-Type": "application/json"
+                }
+            }
+        },
+        {
+            "request": {
+                "method": "GET",
+                "urlPattern": "/foo_external_file_with_body",
+                "headers": {
+                    "Accept": {
+                        "matches": "text/.*"
+                    }
+                }
+            },
+            "response": {
+                "status": 200,
+                "bodyFileName": "responseSample.json",
+                "headers": {
+                    "Content-Type": "application/json"
+                }
+            }
+        },
+        {
+            "request": {
+                "method": "GET",
+                "urlPattern": "/foo_json_body",
+                "headers": {
+                    "Accept": {
+                        "matches": "text/.*"
+                    }
+                }
+            },
+            "response": {
+                "status": 200,
+                "jsonBody": {
+                    "name":"hello"
+                },
+                "headers": {
+                    "Content-Type": "application/json"
+                }
+            }
         }
-      }
-    },
-    "response": {
-      "status": 200,
-      "body": "{\"bar\":\"buzz\"}",
-      "headers": {
-        "Content-Type": "application/json"
-      }
-    }
-  }
+
+
+    ]
+}

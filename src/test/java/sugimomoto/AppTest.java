@@ -20,6 +20,8 @@ public class AppTest
 {
     @Rule
     public WireMockRule wireMockRule = new WireMockRule(8081);
+
+    private final String url = "http://localhost:8081/";
     
     /**
      * Rigorous Test :-)
@@ -34,10 +36,31 @@ public class AppTest
     public void mockServerTest() throws IOException{
         
         OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url("http://localhost:8081/foo").header("Accept", "text/plain").get().build();
+        Request request = new Request.Builder().url(url + "foo").header("Accept", "text/plain").get().build();
 
         Response response = client.newCall(request).execute();
         assertEquals("{\"bar\":\"buzz\"}",response.body().string());
+    }
+
+    @Test
+    public void externalFileTest() throws IOException{
+        
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(url + "foo_external_file_with_body").header("Accept", "text/plain").get().build();
+
+        Response response = client.newCall(request).execute();
+        assertEquals("{\"bar\":\"buzz\"}",response.body().string());
+    }
+
+    
+    @Test
+    public void jsonBodyTest() throws IOException{
+        
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(url + "foo_json_body").header("Accept", "text/plain").get().build();
+
+        Response response = client.newCall(request).execute();
+        assertTrue("match", response.body().string().contains("hello"));
     }
 
     @Test
