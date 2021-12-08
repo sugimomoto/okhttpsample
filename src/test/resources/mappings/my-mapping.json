@@ -1,5 +1,33 @@
 {
     "mappings": [
+        
+        {
+            "request": {
+                "method": "POST",
+                "urlPattern": "/foo_json_post",
+                "headers": {
+                    "Content-Type": {
+                        "contains": "application/json"
+                    },
+                    "Accept": {
+                        "matches": "application/json"
+                    }
+                },
+                "bodyPatterns":[
+                    {
+                        "equalToJson" : {"bar": "buzz"}
+                    }
+                ]
+
+            },
+            "response": {
+                "status": 200,
+                "body": "{\"result\":\"created\"}",
+                "headers": {
+                    "Content-Type": "application/json"
+                }
+            }
+        },
         {
             "request": {
                 "method": "GET",

@@ -5,11 +5,16 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 
+import javax.print.attribute.standard.Media;
+
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
+import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
+import org.apache.hc.core5.http.ContentType;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -61,6 +66,21 @@ public class AppTest
 
         Response response = client.newCall(request).execute();
         assertTrue("match", response.body().string().contains("hello"));
+    }
+
+    @Test
+    public void postRequestTest() throws IOException{
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = RequestBody.create(MediaType.parse("application/json"), "{\"bar\":\"buzz\"}");
+        Request request = new Request
+        .Builder()
+        .url(url + "foo_json_post")
+        .header("Accept", "application/json")
+        .header("Content-Type", "application/json")
+        .post(body).build();
+
+        Response response = client.newCall(request).execute();
+        assertEquals(200, response.code());
     }
 
     @Test
