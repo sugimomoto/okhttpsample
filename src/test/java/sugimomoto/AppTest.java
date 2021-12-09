@@ -8,6 +8,7 @@ import java.io.IOException;
 import javax.print.attribute.standard.Media;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
+import com.squareup.okhttp.Credentials;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -39,9 +40,31 @@ public class AppTest
 
     @Test
     public void mockServerTest() throws IOException{
-        
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url(url + "foo").header("Accept", "text/plain").get().build();
+
+        Response response = client.newCall(request).execute();
+        assertEquals("{\"bar\":\"buzz\"}",response.body().string());
+    }
+
+    @Test
+    public void basicAuthenticationTest() throws IOException{
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+            .url(url + "foo_basic_authentication")
+            .header("Accept", "application/json")
+            .header("Authorization", Credentials.basic("userName", "password"))
+            .get().build();
+
+        Response response = client.newCall(request).execute();
+        assertEquals("{\"bar\":\"buzz\"}",response.body().string());
+    }
+
+    @Test
+    public void queryParametersTest() throws IOException{
+        
+        OkHttpClient client = new OkHttpClient();        
+        Request request = new Request.Builder().url(url + "foo_query_parameters?$top=10&$select=id,name").header("Accept", "application/json").get().build();
 
         Response response = client.newCall(request).execute();
         assertEquals("{\"bar\":\"buzz\"}",response.body().string());

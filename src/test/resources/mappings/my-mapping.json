@@ -31,6 +31,54 @@
         {
             "request": {
                 "method": "GET",
+                "urlPath": "/foo_basic_authentication",
+                "headers": {
+                    "Accept": {
+                        "equalTo": "application/json"
+                    }
+                },
+                "basicAuthCredentials":{
+                    "username" : "userName",
+                    "password" : "password"
+                }
+            },
+            "response": {
+                "status": 200,
+                "body": "{\"bar\":\"buzz\"}",
+                "headers": {
+                    "Content-Type": "application/json"
+                }
+            }
+        },
+        {
+            "request": {
+                "method": "GET",
+                "urlPath": "/foo_query_parameters",
+                "queryParameters":{
+                    "$select" : {
+                        "equalTo" : "id,name"
+                    },
+                    "$top":{
+                        "equalTo": "10"
+                    }
+                },
+                "headers": {
+                    "Accept": {
+                        "equalTo": "application/json"
+                    }
+                }
+            },
+            "response": {
+                "status": 200,
+                "body": "{\"bar\":\"buzz\"}",
+                "headers": {
+                    "Content-Type": "application/json"
+                }
+            }
+        },
+        {
+            "request": {
+                "method": "GET",
                 "urlPattern": "/foo",
                 "headers": {
                     "Accept": {
