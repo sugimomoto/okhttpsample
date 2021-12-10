@@ -4,9 +4,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.print.attribute.standard.Media;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.squareup.okhttp.Credentials;
 import com.squareup.okhttp.MediaType;
@@ -105,6 +108,31 @@ public class AppTest
         Response response = client.newCall(request).execute();
         assertEquals(200, response.code());
     }
+
+    @Test
+    public void postJsonRequestTest() throws IOException{
+
+        List<User> users = new ArrayList();
+        // "ignoreArrayOrder" : true をつけると配列の順番が変わってもOK
+        users.add(new User(1,"kazuya"));
+        users.add(new User(2,"hitomi"));
+
+        String postJson = new ObjectMapper().writeValueAsString(users);
+
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = RequestBody.create(MediaType.parse("application/json"), postJson);
+        Request request = new Request
+            .Builder()
+            .url(url + "foo_json_user_post")
+            .header("Accept", "application/json")
+            .header("Content-Type", "application/json")
+            .post(body).build();
+
+        Response response = client.newCall(request).execute();
+        assertEquals(200, response.code());
+    }
+
+
 
     @Test
     public void PostmanEchoTest() throws IOException{

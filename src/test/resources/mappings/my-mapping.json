@@ -1,6 +1,41 @@
 {
     "mappings": [
-        
+        {
+            "request": {
+                "method": "POST",
+                "urlPattern": "/foo_json_user_post",
+                "headers": {
+                    "Content-Type": {
+                        "contains": "application/json"
+                    },
+                    "Accept": {
+                        "matches": "application/json"
+                    }
+                },
+                "bodyPatterns": [
+                    {
+                        "equalToJson": [
+                            {
+                                "id": 2,
+                                "name": "hitomi"
+                            },
+                            {
+                                "id": 1,
+                                "name": "kazuya"
+                            }
+                        ],
+                        "ignoreArrayOrder" : true
+                    }
+                ]
+            },
+            "response": {
+                "status": 200,
+                "body": "{\"result\":\"created\"}",
+                "headers": {
+                    "Content-Type": "application/json"
+                }
+            }
+        },
         {
             "request": {
                 "method": "POST",
@@ -13,12 +48,13 @@
                         "matches": "application/json"
                     }
                 },
-                "bodyPatterns":[
+                "bodyPatterns": [
                     {
-                        "equalToJson" : {"bar": "buzz"}
+                        "equalToJson": {
+                            "bar": "buzz"
+                        }
                     }
                 ]
-
             },
             "response": {
                 "status": 200,
@@ -37,9 +73,9 @@
                         "equalTo": "application/json"
                     }
                 },
-                "basicAuthCredentials":{
-                    "username" : "userName",
-                    "password" : "password"
+                "basicAuthCredentials": {
+                    "username": "userName",
+                    "password": "password"
                 }
             },
             "response": {
@@ -54,11 +90,11 @@
             "request": {
                 "method": "GET",
                 "urlPath": "/foo_query_parameters",
-                "queryParameters":{
-                    "$select" : {
-                        "equalTo" : "id,name"
+                "queryParameters": {
+                    "$select": {
+                        "equalTo": "id,name"
                     },
-                    "$top":{
+                    "$top": {
                         "equalTo": "10"
                     }
                 },
@@ -125,14 +161,12 @@
             "response": {
                 "status": 200,
                 "jsonBody": {
-                    "name":"hello"
+                    "name": "hello"
                 },
                 "headers": {
                     "Content-Type": "application/json"
                 }
             }
         }
-
-
     ]
 }
