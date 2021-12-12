@@ -7,18 +7,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
-import com.squareup.okhttp.Credentials;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
 
 import org.junit.Rule;
 import org.junit.Test;
+
+import okhttp3.*;
 
 /**
  * Unit test for simple App.
@@ -30,7 +25,7 @@ public class AppTest
 
     private final String url = "http://localhost:8081/";
 
-    private static final OkHttpClient client = new OkHttpClient();
+    private static final OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new LoggingInterceptor()).build();
     
     /**
      * Rigorous Test :-)

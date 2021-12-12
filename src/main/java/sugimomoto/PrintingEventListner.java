@@ -1,6 +1,6 @@
 package sugimomoto;
 
 
-public class PrintingEventListner extends EventListner {
+public class PrintingEventListner  {
     
 }

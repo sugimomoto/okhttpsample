@@ -2,7 +2,7 @@ package sugimomoto;
 
 import java.io.IOException;
 
-import com.squareup.okhttp.*;
+import okhttp3.*;
 
 public class PostmanEcho {
 
