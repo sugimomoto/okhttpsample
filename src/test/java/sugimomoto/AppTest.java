@@ -25,7 +25,11 @@ public class AppTest
 
     private final String url = "http://localhost:8081/";
 
-    private static final OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new LoggingInterceptor()).build();
+    private static final OkHttpClient client = new OkHttpClient
+        .Builder()
+        .addInterceptor(new LoggingInterceptor())
+        .eventListener(new PrintingEventListner())
+        .build();
     
     /**
      * Rigorous Test :-)
