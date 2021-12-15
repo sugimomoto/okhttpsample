@@ -139,6 +139,20 @@ public class AppTest
     }
 
     @Test
+    public void downloadFleTest() throws IOException{
+        Request request = new Request.Builder()
+            .url(url + "foo_file_download")
+            .header("Accept", "text/plain")
+            .get()
+            .build();
+
+            Response response = client.newCall(request).execute();
+
+            System.out.println(response.body().string());
+
+    }
+
+    @Test
     public void PostmanEchoTest() throws IOException{
         /*
         PostmanEcho echo = new PostmanEcho("https://postman-echo.com/post");

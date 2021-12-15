@@ -89,6 +89,24 @@
         {
             "request": {
                 "method": "GET",
+                "urlPath": "/foo_file_download",
+                "headers": {
+                    "Accept": {
+                        "equalTo": "text/plain"
+                    }
+                }
+            },
+            "response": {
+                "status": 200,
+                "body": "SGVsbG8gVGV4dCBGaWxlIQ==",
+                "headers": {
+                    "Content-Type": "text/plain"
+                }
+            }
+        },
+        {
+            "request": {
+                "method": "GET",
                 "urlPath": "/foo_query_parameters",
                 "queryParameters": {
                     "$select": {
