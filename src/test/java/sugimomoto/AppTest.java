@@ -130,7 +130,13 @@ public class AppTest
         assertEquals(200, response.code());
     }
 
+    @Test
+    public void mockLabTest() throws IOException{
+        Request request = new Request.Builder().url("http://2q14l.mocklab.io" + "/json/1").header("Accept", "application/json").get().build();
 
+        Response response = client.newCall(request).execute();
+        assertTrue("Success", response.body().string().contains("things"));
+    }
 
     @Test
     public void PostmanEchoTest() throws IOException{
