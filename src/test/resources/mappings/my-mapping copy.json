@@ -1,0 +1,22 @@
+{
+    "mappings": [
+        {
+            "request": {
+                "method": "GET",
+                "urlPath": "/foo",
+                "headers": {
+                    "Accept": {
+                        "equalTo": "application/json"
+                    }
+                }
+            },
+            "response": {
+                "status": 200,
+                "body": "{\"bar\":\"buzz\"}",
+                "headers": {
+                    "Content-Type": "application/json"
+                }
+            }
+        }
+    ]
+}

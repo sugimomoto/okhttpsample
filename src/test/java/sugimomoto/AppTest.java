@@ -8,12 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.tomakehurst.wiremock.junit.WireMockRule;
 
 import org.junit.Rule;
 import org.junit.Test;
 
 import okhttp3.*;
+
+import com.github.tomakehurst.wiremock.junit.WireMockRule;
+
 
 /**
  * Unit test for simple App.
@@ -42,7 +44,7 @@ public class AppTest
 
     @Test
     public void mockServerTest() throws IOException{
-        Request request = new Request.Builder().url(url + "foo").header("Accept", "text/plain").get().build();
+        Request request = new Request.Builder().url(url + "foo").header("Accept", "application/jso").get().build();
 
         Response response = client.newCall(request).execute();
         assertEquals("{\"bar\":\"buzz\"}",response.body().string());
@@ -117,8 +119,7 @@ public class AppTest
 
         String postJson = new ObjectMapper().writeValueAsString(users);
 
-        
-        RequestBody body = RequestBody.create(MediaType.parse("application/json"), postJson);
+        RequestBody body = RequestBody.create(postJson,MediaType.parse("application/json"));
         Request request = new Request
             .Builder()
             .url(url + "foo_json_user_post")
